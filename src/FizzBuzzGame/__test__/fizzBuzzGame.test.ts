@@ -1,41 +1,29 @@
 import FizzBuzzGame from '../index'
 
-test('Numbers divisible by 3 should be replaced by the word Fizz', () => {
-  const expectedValue = 'Fizz'
+test.each([
+  ['3', 9, 'Fizz'],
+  ['5', 25, 'Buzz'],
+  ['2', 4, 'Foo'],
+  ['2 and 3', 6, 'FizzFoo'],
+  ['3 and 5', 15, 'FizzBuzz'],
+  ['2 and 5', 10, 'BuzzFoo'],
+  ['2, 3 and 5', 30, 'FizzBuzzFoo'],
+])(
+  'Numbers divisible by %p as %p should be replaced by the word %p',
+  (description, value, expected) => {
+    const fizzBuzzGame = new FizzBuzzGame()
 
+    const result = fizzBuzzGame.play(value)
+
+    expect(expected).toEqual(result)
+  }
+)
+
+test('Numbers that are not divisible by 2, 3 or 5 should be returned', () => {
+  const expectedValue = '7'
   const fizzBuzzGame = new FizzBuzzGame()
 
-  const result = fizzBuzzGame.play(3)
-
-  expect(expectedValue).toEqual(result)
-})
-
-test('Numbers divisible by 5 should be replaced by the word Buzz', () => {
-  const expectedValue = 'Buzz'
-
-  const fizzBuzzGame = new FizzBuzzGame()
-
-  const result = fizzBuzzGame.play(5)
-
-  expect(expectedValue).toEqual(result)
-})
-
-test('Numbers divisible by 3 and 5 should be replaced by the word FizzBuzz', () => {
-  const expectedValue = 'FizzBuzz'
-
-  const fizzBuzzGame = new FizzBuzzGame()
-
-  const result = fizzBuzzGame.play(15)
-
-  expect(expectedValue).toEqual(result)
-})
-
-test('Numbers that are not divisible by 3 or 5 should be returned', () => {
-  const expectedValue = '4'
-
-  const fizzBuzzGame = new FizzBuzzGame()
-
-  const result = fizzBuzzGame.play(4)
+  const result = fizzBuzzGame.play(7)
 
   expect(expectedValue).toEqual(result)
 })
